@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsão de diagnóstico de diabetes</title>
+     <style>
+        body {
+            background-color: #E6E6FA
+            }
+
+
+        div {
+        margin-bottom: 10px;
+        }
+
+        label {
+          display: inline-block;
+          width: 130px;
+          text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+        <h1> Dados para previsão de diagnóstico de diabetes </h1>
+         <form id="myForm" onsubmit ="return false" action = {{ url_for('make_prediction')}} method = "post" >
+        <h2>Insira os dados:</h2>
+        <div><label>Pregnancies:</label><input type="range" min="0" max="17" value="3" class="slider" name = "pregnancies" onchange="updateSlider(this.value, this.name)" oninput="this.nextElementSibling.value = this.value"><output>3</output></div>
+        <div><label>Glucose:</label><input type="range" min="0" max="199" value="117" class="slider" name = "glucose" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>117</output></div>
+        <div><label>Blood Pressure:</label><input type="range" min="0" max="122" value="72" class="slider" name = "blood_pressure" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>72</output></div>
+        <div><label>Skin Thickness:</label><input type="range" min="0" max="99" value="23" class="slider" name = "skin_thickness" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>23</output></div>
+        <div><label>Insulin:</label><input type="range" min="0.0" max="846.0" value="30.0" class="slider" name = "insulin" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>30.0</output></div>
+        <div><label>BMI:</label><input type="range" min="0.0" max="67.1" value="32.0" class="slider" name = "BMI" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>32.0</output></div>
+        <div><label>DPF:</label><input type="range" min="0.078" max="2.42" value="0.3725" class="slider" name = "DPF" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>0.3725</output></div>
+        <div><label>Age:</label><input type="range" min="21" max="81" value="29" class="slider" name = "age" onchange="updateSlider()" oninput="this.nextElementSibling.value = this.value"><output>29</output></div>
+
+        </form>
+
+        <script>
+        function updateSlider(value, name) {
+          storeCookie(name, value);
+          alert(value)
+          alert(name)
+          document.getElementById("myForm").submit();
+
+        }
+
+        function storeCookie(name, value){
+            alert('ok')
+        }
+
+        if(field1 = getCookie("field1")) document.myForm.field1.value = field1;
+
+        </script>
+
+        <br></br>
+        <h3>{{ prediction_text }} </h3>
+
+</body>
+</html>
+
