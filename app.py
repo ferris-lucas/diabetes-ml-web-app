@@ -1,8 +1,6 @@
-import flask
-import pandas as pd
-from flask import Flask, render_template, request, redirect, url_for
 import joblib
-import pickle
+import pandas as pd
+from flask import Flask, render_template, request
 
 #Declare the app with constructor
 app = Flask(__name__)
@@ -44,7 +42,7 @@ def make_prediction():
 
         [prediction] = loaded_model.predict(user_input)
 
-    if prediction = 1:
+    if prediction == 1:
         msg = "A previsão é de diagnóstico positivo, tem diabetes."
     else:
         msg = "A previsão é de diagnóstico negativo, não tem diabetes."
