@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsão de diagnóstico de diabetes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+     <style>
+        body {
+
+            }
+        div {
+        margin-bottom: 10px;
+        }
+        label {
+          display: inline-block;
+          width: 130px;
+          text-align: right;
+        }
+    </style>
+</head>
+<body>
+        <h1> Dados para previsão de diagnóstico de diabetes </h1>
+         <form id="myForm" action="{{ url_for('make_prediction') }}" method = "post" >
+        <h2>Insira os dados:</h2>
+        <div><label>Pregnancies:</label><input type="range" min="0" max="17" value="{{ v1 }}" class="slider" name = "pregnancies" onchange="updateSlider()" ><output>{{ v1 }}</output></div>
+        <div><label>Glucose:</label><input type="range" min="0" max="199" value="{{ v2 }}" class="slider" name = "glucose" onchange="updateSlider()" ><output>{{ v2 }}</output></div>
+        <div><label>Blood Pressure:</label><input type="range" min="0" max="122" value="{{ v3 }}" class="slider" name = "blood_pressure" onchange="updateSlider()" ><output>{{ v3 }}</output></div>
+        <div><label>Skin Thickness:</label><input type="range" min="0" max="99" value="{{ v4 }}" class="slider" name = "skin_thickness" onchange="updateSlider()" ><output>{{ v4 }}</output></div>
+        <div><label>Insulin:</label><input type="range" min="0.0" max="846.0" value="{{ v5 }}" class="slider" name = "insulin" onchange="updateSlider()" ><output>{{ v5 }}</output></div>
+        <div><label>BMI:</label><input type="range" min="0.0" max="67.1" value="{{ v6 }}" class="slider" name = "BMI" onchange="updateSlider()" ><output>{{ v6 }}</output></div>
+        <div><label>DPF:</label><input type="range" min="0.078" max="2.42" value="{{ v7 }}" class="slider" name = "DPF" onchange="updateSlider()" ><output>{{ v7 }}</output></div>
+        <div><label>Age:</label><input type="range" min="21" max="81" value="{{ v8 }}" class="slider" name = "age" onchange="updateSlider()" ><output>{{ v8 }}</output></div>
+        </form>
+        <script>
+        function updateSlider(value, name) {
+          document.getElementById("myForm").submit();
+        }
+        </script>
+        <h3>{{ prediction_text }} </h3>
+
+</body>
+</html>
+
