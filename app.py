@@ -1,23 +1,25 @@
-import flask
 import pandas as pd
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 import joblib
-import pickle
 
-#Declare the app with constructor
 app = Flask(__name__)
 
-#Load model from serialized file model
 loaded_model = joblib.load('model.pkl')
 
-#Decorator to add the function root
-@app.route("/")
-def root():
-# Calls the render_template and points to html
-    return render_template("index.html")
+@app.route('/')
+def index():
+    return render_template('index.html',
+                           prediction_text='Altere os valores papra gerar previsão',
+                           v1=3,
+                           v2=90,
+                           v3=90,
+                           v4=50,
+                           v5=95,
+                           v6=30,
+                           v7=0.500,
+                           v8=50)
 
-
-@app.route("/predict", methods=['POST'])
+@app.route('/predict', methods=['POST',])
 def make_prediction():
 
     if request.method == 'POST':
@@ -41,15 +43,21 @@ def make_prediction():
                      }
 
         user_input = pd.DataFrame(user_data, index=[0])
-
         [prediction] = loaded_model.predict(user_input)
 
-    if prediction = 1:
-        msg = "A previsão é de diagnóstico positivo, tem diabetes."
+    if prediction == 1:
+        msg = "A previsão é de que o paciente tem diabetes."
     else:
-        msg = "A previsão é de diagnóstico negativo, não tem diabetes."
+        msg = "A previsão é de que o paciente não tem diabetes."
 
-    return render_template("index.html", prediction_text = msg)
-
+    return render_template("index.html",   prediction_text=msg,
+                                           v1=pregnancies,
+                                           v2=glucose,
+                                           v3=blood_pressure,
+                                           v4=skin_thickness,
+                                           v5=insulin,
+                                           v6=BMI,
+                                           v7=DPF,
+                                           v8=age)
 if __name__ == '__main__':
     app.run(debug=True)
