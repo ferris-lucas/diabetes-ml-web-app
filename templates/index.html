@@ -1,43 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Previsão de diagnóstico de diabetes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
-     <style>
-        body {
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediction of Diabetes using Machine Learning</title>
+    <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
+    <style>
+            * {
+      box-sizing: border-box;
+    }
 
-            }
-        div {
-        margin-bottom: 10px;
-        }
-        label {
-          display: inline-block;
-          width: 130px;
-          text-align: right;
-        }
+    ul {
+      columns: 3;
+      -webkit-columns: 3;
+      -moz-columns: 3;
+    }
+
+    .column {
+      float: left;
+      padding: 10px;
+      height: 530px;
+    }
+
+    .left {
+      width: 35%;
+    }
+
+    .right {
+      width: 65%;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    body {
+      font-size: 15px
+    }
+
+    div {
+      margin-bottom: 8px;
+    }
+
+     label {
+        display: inline-block;
+        width: 105px;
+        text-align: right;
+        margin-right: 2px;
+        margin-left: 2px;
+        font-size: 15px;
+     }
+     button {
+     margin-left: 4px;
+     margin-right: 4px;
+     }
+
+     output {
+     margin-left: 5px;
+     font-size: 16px;
+     }
+
     </style>
 </head>
 <body>
-        <h1> Dados para previsão de diagnóstico de diabetes </h1>
+<div class="row"></div>
+        <h2> Diabetes Diagnosis Prediction</h2>
          <form id="myForm" action="{{ url_for('make_prediction') }}" method = "post" >
-        <h2>Insira os dados:</h2>
-        <div><label>Pregnancies:</label><input type="range" min="0" max="17" value="{{ v1 }}" class="slider" name = "pregnancies" onchange="updateSlider()" ><output>{{ v1 }}</output></div>
-        <div><label>Glucose:</label><input type="range" min="0" max="199" value="{{ v2 }}" class="slider" name = "glucose" onchange="updateSlider()" ><output>{{ v2 }}</output></div>
-        <div><label>Blood Pressure:</label><input type="range" min="0" max="122" value="{{ v3 }}" class="slider" name = "blood_pressure" onchange="updateSlider()" ><output>{{ v3 }}</output></div>
-        <div><label>Skin Thickness:</label><input type="range" min="0" max="99" value="{{ v4 }}" class="slider" name = "skin_thickness" onchange="updateSlider()" ><output>{{ v4 }}</output></div>
-        <div><label>Insulin:</label><input type="range" min="0.0" max="846.0" value="{{ v5 }}" class="slider" name = "insulin" onchange="updateSlider()" ><output>{{ v5 }}</output></div>
-        <div><label>BMI:</label><input type="range" min="0.0" max="67.1" value="{{ v6 }}" class="slider" name = "BMI" onchange="updateSlider()" ><output>{{ v6 }}</output></div>
-        <div><label>DPF:</label><input type="range" min="0.078" max="2.42" value="{{ v7 }}" class="slider" name = "DPF" onchange="updateSlider()" ><output>{{ v7 }}</output></div>
-        <div><label>Age:</label><input type="range" min="21" max="81" value="{{ v8 }}" class="slider" name = "age" onchange="updateSlider()" ><output>{{ v8 }}</output></div>
-        </form>
+                  <div class="column left" style="background-color:#d9e7fc;">
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <div><label>Pregnancies:   </label><button onclick="subtract(document.getElementById('pregnancies').id)"   >-</button><input type="range" min="0"     max="15"    step="1.000" value="{{ v1 }}" class="slider" name="pregnancies"    id="pregnancies"    onchange="updateSlider()"><output><button onclick="add(document.getElementById('pregnancies').id)"   >+</button>{{ v1 }}      </output></div>
+                      <div><label>Glucose:       </label><button onclick="subtract(document.getElementById('glucose').id)"       >-</button><input type="range" min="0"     max="199"   step="1.000" value="{{ v2 }}" class="slider" name="glucose"        id="glucose"        onchange="updateSlider()"><output><button onclick="add(document.getElementById('glucose').id)"       >+</button>{{ v2 }} mg/dL</output></div>
+                      <div><label>Blood Pressure:</label><button onclick="subtract(document.getElementById('blood_pressure').id)">-</button><input type="range" min="0"     max="122"   step="1.000" value="{{ v3 }}" class="slider" name="blood_pressure" id="blood_pressure" onchange="updateSlider()"><output><button onclick="add(document.getElementById('blood_pressure').id)">+</button>{{ v3 }} mmHg </output></div>
+                      <div><label>Skin Thickness:</label><button onclick="subtract(document.getElementById('skin_thickness').id)">-</button><input type="range" min="0"     max="99"    step="1.000" value="{{ v4 }}" class="slider" name="skin_thickness" id="skin_thickness" onchange="updateSlider()"><output><button onclick="add(document.getElementById('skin_thickness').id)">+</button>{{ v4 }} mm   </output></div>
+                      <div><label>Insulin:       </label><button onclick="subtract(document.getElementById('insulin').id)"       >-</button><input type="range" min="0.0"   max="846.0" step="1.000" value="{{ v5 }}" class="slider" name="insulin"        id="insulin"        onchange="updateSlider()"><output><button onclick="add(document.getElementById('insulin').id)"       >+</button>{{ v5 }} µU/mL</output></div>
+                      <div><label>BMI:           </label><button onclick="subtract(document.getElementById('BMI').id)"           >-</button><input type="range" min="0.0"   max="67.1"  step="1.000" value="{{ v6 }}" class="slider" name="BMI"            id="BMI"            onchange="updateSlider()"><output><button onclick="add(document.getElementById('BMI').id)"           >+</button>{{ v6 }} kg/m²</output></div>
+                      <div><label>DPF:           </label><button onclick="subtract(document.getElementById('DPF').id)"           >-</button><input type="range" min="0.078" max="2.42"  step="0.001" value="{{ v7 }}" class="slider" name="DPF"            id="DPF"            onchange="updateSlider()"><output><button onclick="add(document.getElementById('DPF').id)"           >+</button>{{ v7 }}      </output></div>
+                      <div><label>Age:           </label><button onclick="subtract(document.getElementById('age').id)"           >-</button><input type="range" min="21"    max="81"    step="1.000" value="{{ v8 }}" class="slider" name="age"            id="age"            onchange="updateSlider()"><output><button onclick="add(document.getElementById('age').id)"           >+</button>{{ v8 }} years</output></div>
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <div class="row"></div>
+                      <p style="font-size:20px; border:3px; border-style:solid; border-color:#cccccc; padding: 1em;"><b>{{ prediction_text }}</b></p>
+                  </div>
+                  <div class="column right" style="background-color:#9dc0f5;">
+                    <h3>Pima Indians Diabetes Database - Predict the onset of diabetes based on diagnostic measures</h3>
+                      <p><b>Context</b></p>
+                      <p style="text-align:justify">This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. The objective of the dataset is to diagnostically  predict whether or not a patient has diabetes, based on certain diagnostic measurements. Several constraints were placed on the  selection of these instances from a larger database. All patients here are females at least 21 years old of Pima Indian heritage.</p>
+                      <p><b>Content</b></p>
+                      <p style="text-align:justify">The datasets consists of several medical predictor variables and one target variable, outcome. Predictor variables includes:</p>
+                      <ul>
+                          <li>Number of times pregnant</li>
+                          <li>Plasma glucose concentration a 2 hours in an oral glucose tolerance test</li>
+                          <li>Diastolic blood pressure (mm Hg)</li>
+                          <li>Triceps skin fold thickness (mm)</li>
+                          <li>2-Hour serum insulin (mu U/ml)</li>
+                          <li>BMI - Body Mass Index</li>
+                          <li>DPF - Diabetes Pedigree Function</li>
+                          <li>Age</li>
+                      </ul>
+                      <p><b>Acknowledgements</b></p>
+                      <p style="text-align:justify">1. Smith, J.W., Everhart, J.E., Dickson, W.C., Knowler, W.C., & Johannes, R.S. (1988). Using the ADAP learning algorithm to forecast the onset of diabetes  mellitus. In Proceedings of the Symposium on Computer Applications and Medical Care (pp. 261--265). IEEE Computer Society Press.</p>
+                      <p style="text-align:justify">2. <a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database"> Kaggle link</a></p>
+                  </div>
+             <p> Created by: Lucas Ferreira <a href="https://github.com/ferris77/ml-web-app">(GitHub)</a> <a href="https://www.linkedin.com/in/lucas-ferreira-da-silva/">(LinkedIn)</a>. This is a starting project in my Machine Learning studies! Feedbacks are most welcome :)</p>
+                </div>
+         </form>
         <script>
+
         function updateSlider(value, name) {
           document.getElementById("myForm").submit();
         }
-        </script>
-        <h3>{{ prediction_text }} </h3>
 
+        function add(x) {
+            document.getElementById(x).stepUp(1);
+        }
+
+        function subtract(x) {
+            document.getElementById(x).stepUp(-1);
+        }
+
+</script>
+
+        </script>
 </body>
 </html>
 
