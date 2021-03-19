@@ -5,7 +5,7 @@ This project consists of a web app that receives data from a user and returns a 
 A Random Foresc Classifier model was created and tuned. The verall accuracy achieved was 84.42%
 
 <h3>Access</h3>
-Link to web app: ***http://ferris77.pythonanywhere.com/***
+Link to web app: http://ferris77.pythonanywhere.com/
 
 <h3>Acknowledgements</h3>
 1. Smith, J.W., Everhart, J.E., Dickson, W.C., Knowler, W.C., & Johannes, R.S. (1988). Using the ADAP learning algorithm to forecast the onset of diabetes mellitus. In Proceedings of the Symposium on Computer Applications and Medical Care (pp. 261--265). IEEE Computer Society Press.
