@@ -2,6 +2,8 @@
 <h3>Description</h3>
 This project consists of a web app that receives data from a user and returns a message with the diagnosis according to the prediction of a machine learning model of the Random Forest Classifier type. The trained model was serialized and uploaded to the site. Whenever the input values are changed, the forecast is made.
 
+![image](https://user-images.githubusercontent.com/75485471/111921280-8d82da80-8a72-11eb-9cf5-380a89f7c20f.png)
+
 A Random Foresc Classifier model was created and tuned. The overall accuracy achieved was 84.42%
 
 <h3>Access</h3>
